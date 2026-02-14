@@ -3,81 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 CinéDécouverte - Trouvez votre prochain film</title>
+    <title>🎬 Films en Famille - Trouvez le film parfait pour toute la famille</title>
+    <meta name="description" content="Découvrez des films adaptés à toute la famille avec des filtres par âge, genre, réalisateur et plus encore.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h1>🎬 CinéDécouverte</h1>
-            <p class="subtitle">Découvrez votre prochain film préféré</p>
-        </header>
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <h1 class="header-title">🎬 Films en Famille</h1>
+            <p class="header-subtitle">Trouvez le film parfait pour petits et grands</p>
+        </div>
+    </header>
 
-        <!-- Filters Section -->
-        <div class="filters-container">
-            <div class="filter-group">
-                <label for="search">🔍 Rechercher</label>
-                <input type="text" id="search" placeholder="Titre du film..." />
+    <!-- Main Content -->
+    <main class="main-content" role="main">
+        <div class="container">
+
+            <!-- Filters Section -->
+            <section class="filters-section" aria-label="Filtres de recherche">
+                <h2 class="section-title">🔍 Rechercher des films</h2>
+
+                <form id="filterForm" class="filters-form" role="search">
+
+                    <!-- Age Filter -->
+                    <div class="filter-group">
+                        <label for="ageFilter" class="filter-label">
+                            👶 Âge limite
+                            <span class="filter-hint">Pour quel public ?</span>
+                        </label>
+                        <select id="ageFilter" name="age" class="filter-select" aria-label="Sélectionner une limite d'âge">
+                            <option value="">Tout public</option>
+                            <option value="G,PG">G/PG - Tout public & Enfants</option>
+                            <option value="PG-13">PG-13 - 10-13 ans</option>
+                            <option value="PG-13,R">PG-13+/R - 13-16 ans</option>
+                            <option value="R,NC-17">R+/NC-17 - 16 ans et plus</option>
+                        </select>
+                    </div>
+
+                    <!-- Genre Filter -->
+                    <div class="filter-group">
+                        <label for="genreFilter" class="filter-label">
+                            🎭 Genre
+                            <span class="filter-hint">Type de film</span>
+                        </label>
+                        <select id="genreFilter" name="genre" class="filter-select" aria-label="Sélectionner un genre">
+                            <option value="">Tous les genres</option>
+                            <!-- Genres will be loaded dynamically -->
+                        </select>
+                    </div>
+
+                    <!-- Director Filter -->
+                    <div class="filter-group">
+                        <label for="directorFilter" class="filter-label">
+                            🎬 Réalisateur
+                            <span class="filter-hint">Nom du réalisateur</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="directorFilter"
+                            name="director"
+                            class="filter-input"
+                            placeholder="Ex: Steven Spielberg"
+                            aria-label="Rechercher par réalisateur"
+                        >
+                    </div>
+
+                    <!-- Actor Filter -->
+                    <div class="filter-group">
+                        <label for="actorFilter" class="filter-label">
+                            🌟 Acteur/Actrice
+                            <span class="filter-hint">Nom de l'acteur</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="actorFilter"
+                            name="actor"
+                            class="filter-input"
+                            placeholder="Ex: Tom Hanks"
+                            aria-label="Rechercher par acteur"
+                        >
+                    </div>
+
+                    <!-- Year Range Filter -->
+                    <div class="filter-group filter-group-full">
+                        <label for="yearFilter" class="filter-label">
+                            📅 Année de sortie
+                            <span class="filter-hint">De <span id="yearMin">2004</span> à <span id="yearMax">2026</span></span>
+                        </label>
+                        <div class="slider-container">
+                            <input
+                                type="range"
+                                id="yearFilterMin"
+                                name="yearMin"
+                                class="filter-slider"
+                                min="1900"
+                                max="2026"
+                                value="2004"
+                                aria-label="Année minimale"
+                            >
+                            <input
+                                type="range"
+                                id="yearFilterMax"
+                                name="yearMax"
+                                class="filter-slider"
+                                min="1900"
+                                max="2026"
+                                value="2026"
+                                aria-label="Année maximale"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Rating Filter -->
+                    <div class="filter-group filter-group-full">
+                        <label for="ratingFilter" class="filter-label">
+                            ⭐ Note minimale IMDB
+                            <span class="filter-hint">Minimum <span id="ratingValue">6.0</span>/10</span>
+                        </label>
+                        <input
+                            type="range"
+                            id="ratingFilter"
+                            name="rating"
+                            class="filter-slider"
+                            min="0"
+                            max="10"
+                            step="0.5"
+                            value="6.0"
+                            aria-label="Note minimale"
+                        >
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="filter-actions">
+                        <button type="submit" class="btn btn-primary" aria-label="Rechercher des films">
+                            🔍 Rechercher
+                        </button>
+                        <button type="button" id="clearFilters" class="btn btn-secondary" aria-label="Vider tous les filtres">
+                            🗑️ Vider filtres
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading hidden" role="status" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <p>Chargement des films...</p>
             </div>
 
-            <div class="filter-group">
-                <label for="genre">🎭 Genre</label>
-                <select id="genre">
-                    <option value="">Tous les genres</option>
-                </select>
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section hidden" aria-label="Résultats de recherche">
+                <h2 class="section-title">
+                    🎥 Résultats
+                    <span id="resultsCount" class="results-count"></span>
+                </h2>
+
+                <!-- Movies Grid -->
+                <div id="moviesGrid" class="movies-grid" role="list"></div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button id="loadMoreBtn" class="btn btn-load-more hidden" aria-label="Charger plus de films">
+                        📽️ Charger plus de films
+                    </button>
+                </div>
+            </section>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results hidden" role="status">
+                <div class="no-results-content">
+                    <span class="no-results-icon">😔</span>
+                    <h3>Aucun film trouvé</h3>
+                    <p>Essayez de modifier vos filtres pour découvrir plus de films !</p>
+                </div>
             </div>
 
-            <div class="filter-group">
-                <label for="year">📅 Année</label>
-                <select id="year">
-                    <option value="">Toutes les années</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="sort">📊 Trier par</label>
-                <select id="sort">
-                    <option value="popularity.desc">Popularité ↓</option>
-                    <option value="vote_average.desc">Note ↓</option>
-                    <option value="release_date.desc">Date de sortie ↓</option>
-                    <option value="title.asc">Titre A-Z</option>
-                </select>
-            </div>
-
-            <button id="applyFilters" class="btn-primary">Appliquer les filtres</button>
         </div>
-
-        <!-- Loading Indicator -->
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Chargement des films...</p>
-        </div>
-
-        <!-- Movies Grid -->
-        <div id="moviesGrid" class="movies-grid"></div>
-
-        <!-- Pagination -->
-        <div id="pagination" class="pagination hidden">
-            <button id="prevPage" class="btn-page">← Précédent</button>
-            <span id="pageInfo" class="page-info">Page 1</span>
-            <button id="nextPage" class="btn-page">Suivant →</button>
-        </div>
-
-        <!-- No Results Message -->
-        <div id="noResults" class="no-results hidden">
-            <p>😔 Aucun film trouvé. Essayez d'autres filtres !</p>
-        </div>
-    </div>
+    </main>
 
     <!-- Movie Modal -->
-    <div id="movieModal" class="modal hidden">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">×</button>
-            <div id="modalBody"></div>
+    <div id="movieModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-overlay" aria-hidden="true"></div>
+        <div class="modal-container">
+            <div class="modal-content">
+                <button class="modal-close" id="closeModal" aria-label="Fermer la fenêtre">×</button>
+                <div id="modalBody" class="modal-body"></div>
+            </div>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p class="footer-text">
+                Propulsé par
+                <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                         alt="The Movie Database"
+                         class="tmdb-logo"
+                         height="20">
+                </a>
+            </p>
+            <p class="footer-credits">
+                Ce produit utilise l'API TMDB mais n'est ni approuvé ni certifié par TMDB.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
