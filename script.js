@@ -1,5 +1,5 @@
 // ===== Configuration API TMDB =====
-const API_KEY = 'a8b9f3e8f7d4c3b2a1e9f8d7c6b5a4e3'; // Remplacez par votre clé API TMDB
+const API_KEY = 'b1822a60470394719692a56113c4e7f2'; // Remplacez par votre clé API TMDB
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 const POSTER_SIZE = 'w500';
