@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 CinéDécouverte - Trouvez votre prochain film</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎬 CinéDécouverte</h1>
+            <p class="subtitle">Découvrez votre prochain film préféré</p>
+        </header>
+
+        <!-- Filters Section -->
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="search">🔍 Rechercher</label>
+                <input type="text" id="search" placeholder="Titre du film..." />
+            </div>
+
+            <div class="filter-group">
+                <label for="genre">🎭 Genre</label>
+                <select id="genre">
+                    <option value="">Tous les genres</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="year">📅 Année</label>
+                <select id="year">
+                    <option value="">Toutes les années</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="sort">📊 Trier par</label>
+                <select id="sort">
+                    <option value="popularity.desc">Popularité ↓</option>
+                    <option value="vote_average.desc">Note ↓</option>
+                    <option value="release_date.desc">Date de sortie ↓</option>
+                    <option value="title.asc">Titre A-Z</option>
+                </select>
+            </div>
+
+            <button id="applyFilters" class="btn-primary">Appliquer les filtres</button>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Chargement des films...</p>
+        </div>
+
+        <!-- Movies Grid -->
+        <div id="moviesGrid" class="movies-grid"></div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination hidden">
+            <button id="prevPage" class="btn-page">← Précédent</button>
+            <span id="pageInfo" class="page-info">Page 1</span>
+            <button id="nextPage" class="btn-page">Suivant →</button>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="no-results hidden">
+            <p>😔 Aucun film trouvé. Essayez d'autres filtres !</p>
+        </div>
+    </div>
+
+    <!-- Movie Modal -->
+    <div id="movieModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

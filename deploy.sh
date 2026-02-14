@@ -27,7 +27,7 @@ if git diff-index --quiet HEAD --; then
 else
     echo "📝 Ajout des fichiers modifiés..."
     git add .
-    
+
     echo "💾 Création du commit..."
     git commit -m "$COMMIT_MESSAGE"
 fi
@@ -36,22 +36,13 @@ fi
 echo "📤 Push vers GitHub..."
 git push origin main
 
-# Demander si on veut déployer sur GitHub Pages
-read -p "🚀 Déployer sur GitHub Pages? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "🏗️  Build de l'application..."
-    npm run build
-    
-    echo "🌐 Déploiement sur GitHub Pages..."
-    npm run deploy
-    
-    echo "✅ Déploiement terminé!"
-    echo "🌍 Ton app sera disponible dans quelques minutes sur:"
-    echo "   https://TON_USERNAME.github.io/cine-decouverte"
-else
-    echo "✅ Code poussé sur GitHub!"
-fi
-
+echo ""
+echo "✅ Code poussé sur GitHub!"
+echo "🌐 GitHub Pages se déploiera automatiquement via GitHub Actions"
+echo "🌍 Ton app sera disponible dans quelques minutes sur:"
+echo "   https://TON_USERNAME.github.io/cine-decouverte"
+echo ""
+echo "📝 N'oublie pas d'activer GitHub Pages dans les paramètres du repo:"
+echo "   Settings → Pages → Source: GitHub Actions"
 echo ""
 echo "🎉 Terminé!"
